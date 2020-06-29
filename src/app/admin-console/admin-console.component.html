@@ -1,0 +1,18 @@
+<div class="container">
+    <div class="row pt-3">
+        <div class="col-12">
+            <h2>Admin console</h2>
+            <p>Choose what you want to manage</p>
+        </div>
+    </div>
+    <nav>
+        <div class="nav nav-tabs" id="nav-tab" role="tablist">
+            <a class="nav-item nav-link" [routerLink]="'processes'" routerLinkActive="active">Processes</a>
+            <a class="nav-item nav-link" [routerLink]="'todos'" routerLinkActive="active">Todos</a>
+            <a class="nav-item nav-link" [routerLink]="'users'" routerLinkActive="active">Users</a>
+        </div>
+    </nav>
+    <div class="tab-content">
+        <router-outlet></router-outlet>
+    </div>
+</div>

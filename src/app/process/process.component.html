@@ -1,0 +1,24 @@
+<div class="container" *ngIf="process">
+    <div>
+        <h1 *ngIf="process.processId === -1">Add New Process</h1>
+        <h1 *ngIf="process.processId !== -1">Edit Process with id: {{process.processId}}</h1>
+    </div>
+    <form (ngSubmit)="!form.invalid && onSaveProcess()" #form="ngForm">
+        <fieldset class="form-group">
+            <label for="Name">Name</label>
+            <input type="text" [(ngModel)]="process.name" class="form-control" name="description" required>
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="prority">Priority</label>
+            <select class="form-control" required [value]="process.priority" [(ngModel)]="process.priority" name="prority">
+          <option *ngFor="let p of priorities" [value]="p.value">{{p.name}}</option>
+        </select>
+        </fieldset>
+        <button type="submit" class="btn btn-success float-left">Save</button>
+        <button type="button" routerLink="/processes" class="btn btn-danger float-right">Cancel</button>
+    </form>
+    <div class="alert alert-danger text-center mt-5" *ngIf="form.touched && form.invalid">
+        Invalid input!
+    </div>
+    <!-- add more validation -->
+</div>

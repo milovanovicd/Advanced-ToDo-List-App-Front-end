@@ -1,0 +1,40 @@
+<div class="container" *ngIf="todo">
+    <div>
+        <h1 *ngIf="todo.id === -1">Add New Todo</h1>
+        <h1 *ngIf="todo.id !== -1">Edit Todo with id: {{todo.id}}</h1>
+    </div>
+    <form (ngSubmit)="!form.invalid && onSaveTodo()" #form="ngForm">
+        <fieldset class="form-group">
+            <label for="description">Description</label>
+            <input type="text" [(ngModel)]="todo.description" class="form-control" name="description" required>
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="date">Due Date</label>
+            <input type="date" [min]="todaysDate" [ngModel]="todo.targetDate | date:'yyyy-MM-dd'" (ngModelChange)="todo.targetDate = $event" class="form-control" name="targetDate" required>
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="prority">Priority</label>
+            <select class="form-control" required [value]="todo.priority" [(ngModel)]="todo.priority" name="prority">
+            <option *ngFor="let p of priorities" [value]="p.value">{{p.name}}</option>
+          </select>
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="type">Type</label>
+            <select class="form-control" required [value]="todo.type" [(ngModel)]="todo.type" name="type">
+          <option *ngFor="let t of types" [value]="t.value">{{t.name}}</option>
+        </select>
+        </fieldset>
+        <fieldset *ngIf="isUpdate" class="form-group">
+            <label for="status">Status</label>
+            <select class="form-control" [value]="todo.status" [(ngModel)]="todo.status" name="status" required>
+        <option *ngFor="let s of statuses" [value]="s.value">{{s.name}}</option>
+      </select>
+        </fieldset>
+        <button type="submit" class="btn btn-success float-left">Save</button>
+        <button type="button" (click)="onCancel()" class="btn btn-danger float-right">Cancel</button>
+    </form>
+    <div class="alert alert-danger text-center mt-5" *ngIf="form.touched && form.invalid">
+        Invalid input!
+    </div>
+    <!-- add more validation -->
+</div>

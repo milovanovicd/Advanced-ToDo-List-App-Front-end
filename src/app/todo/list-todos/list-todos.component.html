@@ -1,0 +1,57 @@
+<div class="container">
+    <div class="row pt-3 pb-3">
+        <div *ngIf="!isLoading" class="col-8 d-flex justify-content-start">
+            <h3>My Todo's List for the process: {{process.name}}</h3>
+        </div>
+        <div class="col-4 d-flex justify-content-end">
+            <button class="btn btn-success" (click)="addTodo()">Add New</button>
+        </div>
+    </div>
+
+    <div class="container pt-2 pb-2">
+        <div class="row justify-content-between">
+            <p class="mb-0"><strong>Filters:</strong></p>
+            <form (ngSubmit)="onFilter()" #form="ngForm" class="d-flex align-items-center justify-content-between">
+
+                <div class="form-group d-flex align-items-center justify-content-between m-0">
+                    <label for="status mb-0">Status</label>
+                    <select class="form-control ml-4 mr-3" required ngModel name="status" #status="ngModel">
+                  <option *ngFor="let status of statuses" [value]="status.value">{{status.name}}</option>
+              </select>
+                </div>
+                <button type="submit" class="btn btn-primary ml-4 mr-3" [disabled]="!form.form.valid">Filter</button>
+                <button type="button" class="btn btn-primary ml-4" (click)="onResetFilters()">Cancel Filters</button>
+            </form>
+        </div>
+    </div>
+</div>
+<div class="container">
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Description</th>
+                <th>Target Date</th>
+                <th>Priority</th>
+                <th>Type</th>
+                <th>Status</th>
+                <th>Update</th>
+                <th>Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let todo of todos">
+                <td>{{todo.description}}</td>
+                <td>{{todo.targetDate | date}}</td>
+                <!-- | pipe -->
+                <td>{{todo.priority}}</td>
+                <td>{{todo.type}}</td>
+                <td>{{todo.status}}</td>
+                <td><button class="btn btn-success" (click)="onUpdateToDo(todo.id)">Update</button></td>
+                <td><button class="btn btn-danger" (click)="onDeleteToDo(todo.id)">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="alert alert-success text-center" *ngIf="message">
+        {{message}}
+    </div>
+</div>

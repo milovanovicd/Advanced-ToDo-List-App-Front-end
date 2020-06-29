@@ -1,0 +1,47 @@
+.section {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    width: 400px;
+    height: 50%;
+    background-color: #e3e3e3;
+    display: flex;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+}
+
+.form-title h2 {
+    margin: 0px;
+    margin-bottom: 20px;
+    line-height: 1.5em;
+    text-transform: uppercase;
+}
+
+.form-group {
+    width: 70%;
+}
+
+.form-input {
+    margin-bottom: 20px;
+}
+
+button:focus,
+.form-input input:focus {
+    outline: none !important;
+}
+
+.form-input input:hover {
+    text-decoration: none;
+}
+
+.form-input input {
+    width: 100%;
+    padding: 10px 5px;
+    border: none;
+}

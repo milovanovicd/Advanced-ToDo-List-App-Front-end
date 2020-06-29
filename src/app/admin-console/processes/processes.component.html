@@ -1,0 +1,40 @@
+<div class="container pt-2 pb-2">
+    <div class="row justify-content-between">
+        <p class="mb-0"><strong>Filters:</strong></p>
+        <form (ngSubmit)="onFilter()" #form="ngForm" class="d-flex align-items-center justify-content-between">
+            <div class="form-group d-flex align-items-center justify-content-between m-0">
+                <label for="user" class="mb-0">User</label>
+                <select class="form-control ml-4 mr-3" required ngModel name="user">
+                <option *ngFor="let user of users" [value]="user.username">{{user.username}}</option>
+            </select>
+            </div>
+            <button type="submit" class="btn btn-primary ml-4 mr-3">Filter</button>
+            <button type="button" class="btn btn-primary ml-4" (click)="onResetFilters()">Cancel Filters</button>
+        </form>
+    </div>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Process name</th>
+            <th>Priority</th>
+            <th>Owner</th>
+            <th>Todos</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let process of processes">
+            <td>{{process.name}}</td>
+            <td>{{process.priority}}</td>
+            <td>{{process.user.username}}</td>
+            <td><button class="btn btn-primary" (click)="onSeeTodos(process.processId)">See Todos</button></td>
+            <td><button class="btn btn-success" (click)="onUpdateProcess(process.processId)">Update</button></td>
+            <td><button class="btn btn-danger" (click)="onDeleteProcess(process.processId)">Delete</button></td>
+        </tr>
+    </tbody>
+</table>
+<div class="alert alert-success text-center" *ngIf="message">
+    {{message}}
+</div>

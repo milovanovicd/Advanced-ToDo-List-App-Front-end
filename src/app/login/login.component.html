@@ -1,0 +1,23 @@
+<div class="section">
+    <div class="container">
+        <div class="form-group mb-0 text-center">
+            <div class="form-title">
+                <h2>Login form</h2>
+            </div>
+            <form (ngSubmit)="form.valid && handleJWTAuthLogin()" #form="ngForm">
+                <div class="form-input">
+                    <input type="text" name="username" placeholder="Username" [(ngModel)]="username" id="username" required>
+                </div>
+                <div class="form-input">
+                    <input type="password" name="password" placeholder="Password" [(ngModel)]="password" id="password" required>
+                </div>
+                <div class="alert alert-warning" *ngIf="invalidLogin">
+                    {{errorMessage}}
+                </div>
+                <div class="form-submit">
+                    <button type="submit" class="btn btn-success btn-block" [disabled]="!form.valid">Log In</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

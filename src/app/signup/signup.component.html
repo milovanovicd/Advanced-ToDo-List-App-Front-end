@@ -1,0 +1,26 @@
+<div class="section">
+    <div class="container">
+        <div class="form-group mb-0 text-center">
+            <div class="form-title">
+                <h2>Sign up form</h2>
+            </div>
+            <form (ngSubmit)="form.valid && onSignUp()" #form="ngForm">
+                <div class="form-input">
+                    <input type="text" name="username" placeholder="Username" [(ngModel)]="username" id="username" required>
+                </div>
+                <div class="form-input">
+                    <input type="password" name="password" placeholder="Password" [(ngModel)]="password" id="password" required>
+                </div>
+                <div class="alert alert-warning" *ngIf="showMessage">
+                    {{message}}
+                </div>
+                <div class="form-submit mb-2">
+                    <button class="btn btn-success btn-block" [disabled]="!form.valid">Sign Up</button>
+                </div>
+            </form>
+            <div class="text-center pt-2 mb-0">
+                <p class="mb-0">Back to <u><strong><a routerLink="/login">Login page</a></strong></u></p>
+            </div>
+        </div>
+    </div>
+</div>

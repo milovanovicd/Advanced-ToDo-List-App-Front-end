@@ -1,0 +1,32 @@
+<div class="container">
+    <div>
+        <h3>Add New User</h3>
+    </div>
+    <form (ngSubmit)="!form.invalid && onAddNewUser()" #form="ngForm">
+        <fieldset class="form-group">
+            <label for="username">Username</label>
+            <input type="text" [(ngModel)]="user.username" class="form-control" name="username" required>
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="email">Email</label>
+            <input type="email" [(ngModel)]="user.email" class="form-control" name="email" required email>
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="password">Password</label>
+            <input type="password" [(ngModel)]="user.password" class="form-control" name="password" required>
+        </fieldset>
+        <fieldset class="form-group">
+            <label for="role">Role</label>
+            <select class="form-control" required [value]="user.admin? 1:0" ngModel name="role">
+              <option value="0">User</option>
+              <option value="1">Admin</option>
+          </select>
+        </fieldset>
+        <button type="submit" class="btn btn-success float-left">Save</button>
+        <button type="button" (click)="onCancel()" class="btn btn-danger float-right">Cancel</button>
+    </form>
+    <div class="alert alert-danger text-center mt-5" *ngIf="form.touched && form.invalid">
+        Invalid input!
+    </div>
+    <!-- add more validation -->
+</div>
