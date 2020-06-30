@@ -10,7 +10,7 @@
         </fieldset>
         <fieldset class="form-group">
             <label for="date">Due Date</label>
-            <input type="date" [min]="todaysDate" [ngModel]="todo.targetDate | date:'yyyy-MM-dd'" (ngModelChange)="todo.targetDate = $event" class="form-control" name="targetDate" required>
+            <input type="date" min="{{todaysDate| date: 'yyyy-MM-dd' }}" [ngModel]="todo.targetDate | date:'yyyy-MM-dd'" (ngModelChange)="todo.targetDate = $event" class="form-control" name="targetDate" required>
         </fieldset>
         <fieldset class="form-group">
             <label for="prority">Priority</label>

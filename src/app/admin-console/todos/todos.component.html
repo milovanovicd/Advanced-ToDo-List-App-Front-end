@@ -41,7 +41,7 @@
             <td>{{todo.priority}}</td>
             <td>{{todo.type}}</td>
             <td>{{todo.status}}</td>
-            <td><button class="btn btn-danger" [disabled]="todo.status.toString() !=='DELETED'" (click)="onDeleteToDo(todo.id)">Delete</button></td>
+            <td><button class="btn btn-danger" [disabled]="isDeleteDisabled(todo)" (click)="onDeleteToDo(todo.id)">Delete</button></td>
         </tr>
     </tbody>
 </table>

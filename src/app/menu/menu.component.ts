@@ -21,12 +21,17 @@ export class MenuComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.isLoading = true;
-    this.userSub = this.userService
-      .getUser(this.basicAuthService.getAuthenticatedUser())
+    if(this.basicAuthService.getAuthenticatedUser()){
+      this.userSub = this.userService.getUser(this.basicAuthService.getAuthenticatedUser())
       .subscribe((user) => {
         this.loggedUser = user;
         this.isLoading = false;
+      },error =>{
+        console.log("Error no user found!");
       });
+
+    }
+
   }
 
   ngOnDestroy() {

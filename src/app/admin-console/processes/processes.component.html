@@ -31,7 +31,7 @@
             <td>{{process.user.username}}</td>
             <td><button class="btn btn-primary" (click)="onSeeTodos(process.processId)">See Todos</button></td>
             <td><button class="btn btn-success" (click)="onUpdateProcess(process.processId)">Update</button></td>
-            <td><button class="btn btn-danger" (click)="onDeleteProcess(process.processId)">Delete</button></td>
+            <td><button class="btn btn-danger" [disabled]="isDeleteDisabled(process)" (click)="onDeleteProcess(process.processId)">Delete</button></td>
         </tr>
     </tbody>
 </table>

@@ -51,5 +51,13 @@ export class ProcessListComponent implements OnInit {
     this.router.navigate(['processes',id,'todos']);
   }
 
+  isDeleteDisabled(process:Process):boolean{
+    if(this.username===process.user.username){
+      return false;
+    }
+
+    return true;
+  }
+
 
 }

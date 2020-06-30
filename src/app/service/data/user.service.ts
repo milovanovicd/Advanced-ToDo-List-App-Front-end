@@ -30,4 +30,8 @@ export class UserService {
   deleteUser(username:string){
     return this.http.delete<boolean>(`${JPA_API_URL}/users/${username}`);
   }
+
+  registerUser(user:User){
+    return this.http.post<boolean>(`${JPA_API_URL}/users/register`,user);
+  }
 }

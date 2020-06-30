@@ -104,4 +104,12 @@ export class ListTodosComponent implements OnInit, OnDestroy {
     this.form.reset();
     this.fetchAllTodos();
   }
+
+  isDeleteDisabled(todo:Todo):boolean{
+    if(this.username===todo.user.username){
+      return false;
+    }
+
+    return true;
+  }
 }

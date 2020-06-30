@@ -5,6 +5,7 @@ import { Subscription, from } from 'rxjs';
 import { NgForm } from '@angular/forms';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/service/data/user.service';
+import { BasicAuthService } from 'src/app/login/basic-auth.service';
 
 @Component({
   selector: 'app-todos',
@@ -18,6 +19,7 @@ export class TodosComponent implements OnInit, OnDestroy {
   message: string;
   users: User[];
   @ViewChild('form') form: NgForm;
+  loggedUser:string;
 
   // priorities = [
   //   { value: 'LOW', name: 'Low' },
@@ -41,10 +43,12 @@ export class TodosComponent implements OnInit, OnDestroy {
 
   constructor(
     private todoService: TodoDataService,
-    private userService: UserService
+    private userService: UserService,
+    private basicAuthService: BasicAuthService
   ) {}
 
   ngOnInit(): void {
+    this.loggedUser = this.basicAuthService.getAuthenticatedUser();
     this.fetchAll();
     this.userSub = this.userService.fetchAllUsers().subscribe((users) => {
       this.users = users;
@@ -115,5 +119,16 @@ export class TodosComponent implements OnInit, OnDestroy {
   onResetFilters() {
     this.form.reset();
     this.fetchAll();
+  }
+  isDeleteDisabled(todo:Todo):boolean{
+    if(this.loggedUser===todo.user.username){
+      return false;
+    }
+
+    if(todo.status.toString() ==='DELETED'){
+      return false;
+    }
+
+    return true;
   }
 }

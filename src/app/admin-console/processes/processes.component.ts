@@ -6,6 +6,7 @@ import { Router } from '@angular/router';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/service/data/user.service';
 import { NgForm } from '@angular/forms';
+import { BasicAuthService } from 'src/app/login/basic-auth.service';
 
 @Component({
   selector: 'app-processes',
@@ -17,16 +18,20 @@ export class ProcessesComponent implements OnInit, OnDestroy {
   processSub: Subscription;
   message: string;
   users: User[];
+  loggedUser:string;
   userSub:Subscription;
   @ViewChild('form') form: NgForm;
+
 
   constructor(
     private processService: ProcessService,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private basicAuthService:BasicAuthService
   ) {}
 
   ngOnInit(): void {
+    this.loggedUser = this.basicAuthService.getAuthenticatedUser();
     this.fetchAllProcesses();
     this.userSub=this.userService.fetchAllUsers().subscribe((users) => {
       this.users = users;
@@ -82,5 +87,13 @@ export class ProcessesComponent implements OnInit, OnDestroy {
     if (this.userSub) {
       this.userSub.unsubscribe();
     }
+  }
+
+  isDeleteDisabled(process:Process):boolean{
+    if(this.loggedUser===process.user.username){
+      return false;
+    }
+
+    return true;
   }
 }

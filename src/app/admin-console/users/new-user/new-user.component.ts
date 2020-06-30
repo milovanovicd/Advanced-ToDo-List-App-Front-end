@@ -16,18 +16,28 @@ export class NewUserComponent implements OnInit {
   constructor(private userService:UserService, private router:Router) { }
 
   ngOnInit(): void {
-    this.user = new User('','','',false);
+    this.user = new User('','','',false,false);
   }
 
   onAddNewUser(){
     let isAdmin = false;
     if(this.form.value.role === "1") isAdmin=true;
     this.user.admin = isAdmin;
-    this.userService.addUser(this.user).subscribe(()=>{
-      this.form.reset();
-      this.router.navigate(['/','admin-console','users']);
+    this.userService.registerUser(this.user).subscribe((response)=>{
+      if(response){
+        this.form.reset();
+        this.router.navigate(['/','admin-console','users']);
+        console.log(this.form);
+        console.log("User added: "+response);
+      }else{
+        window.confirm("Username od email is taken! Try new one!");
+        console.log("User added: "+response);
+      }
+
+    },error=>{
+      window.confirm("Username od email is taken! Try new one!");
     });
-    console.log(this.form);
+
 
   }
 
