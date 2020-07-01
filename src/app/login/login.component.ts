@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { BasicAuthService } from './basic-auth.service';
+import { UserService } from '../service/data/user.service';
 
 @Component({
   selector: 'app-login',
@@ -15,7 +16,8 @@ export class LoginComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private basicAuthService: BasicAuthService
+    private basicAuthService: BasicAuthService,
+    private userService:UserService
   ) {}
 
   ngOnInit(): void {}
@@ -54,12 +56,25 @@ export class LoginComponent implements OnInit {
       .executeJWTAuthenticationService(this.username, this.password)
       .subscribe(
         (data) => {
-          console.log(data);
-          this.router.navigate(['welcome']);
-          this.invalidLogin = false;
+          // console.log("JWT WORKS")
+          this.userService.getUser(this.username).subscribe(user =>{
+            if(user.enabled){
+              console.log("User logged in succesfully");
+              console.log(data);
+              this.router.navigate(['welcome']);
+              this.invalidLogin = false;
+            }else{
+              this.basicAuthService.logout();
+              console.log("User is not active!");
+              this.errorMessage = "User account is not active!";
+              this.invalidLogin = true;
+
+            }
+          })
         },
         (error) => {
           console.log(error);
+          this.errorMessage = 'Invalid credidentials!';
           this.invalidLogin = true;
         }
       );
